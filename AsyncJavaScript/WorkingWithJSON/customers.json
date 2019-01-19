@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "company": "123 Designs",
+    "phone": "30348555"
+  },
+  {
+    "id": 2,
+    "name": "Papa Lolo",
+    "company": "Paul Techs",
+    "phone": "123455543"
+  },
+  {
+    "id": 3,
+    "name": "June Namwoso",
+    "company": "Telkom",
+    "phone": "07939303444"
+  },
+  {
+    "id": 4,
+    "name": "Paul W",
+    "company": "@iLabAfrica",
+    "phone": "08933343"
+  },
+  {
+    "id": 5,
+    "name": "Val Chep",
+    "company": "KPMG",
+    "phone": "30348555334"
+  },
+  {
+    "id": 6,
+    "name": "Ule Msee",
+    "company": "Microsoft",
+    "phone": "73738823"    
+  }
+]
