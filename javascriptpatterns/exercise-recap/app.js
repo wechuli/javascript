@@ -230,6 +230,11 @@ const App = (function(ItemCtrl, UICtrl) {
     // document
     //   .querySelector("#edit-pen")
     //   .addEventListener("click", itemEditClick);
+
+    //Back button event
+    document
+    .querySelector(UISelectors.backBtn)
+    .addEventListener("click", UICtrl.clearEditState);
   };
 
   //Add item submit
