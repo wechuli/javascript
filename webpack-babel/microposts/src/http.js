@@ -60,7 +60,7 @@ class EasyHTTP {
 
  }
 
- class sample extends
+
 
  export const http = new EasyHTTP(); //so that we don't have to create instances after we call the class
 
