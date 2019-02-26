@@ -22,6 +22,7 @@ class Person {
   }
 }
 
+
 const valentine = new Person("Valentine", "Chep", "11/13/1993");
 console.log(valentine);
 console.log(valentine.greeting());
