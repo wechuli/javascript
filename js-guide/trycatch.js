@@ -33,3 +33,14 @@ try {
 }
 // The catch block specifies an identifier that holds the value specified by the throw statement; you can use this identifier to get
 // information about the exception that was thrown JavaScript creates this identifier when the catch block is entered; the identifier lasts obly for the duration of the catch block; after the catch block finishes executing, the identifier is no longer available
+
+//You can use the finally block to make your script fail gracefully when an exception occurs; 
+
+openMyFile();
+try {
+  writeMyFile(theData); //This may throw an error
+} catch(e) {  
+  handleError(e); // If we got an error we handle it
+} finally {
+  closeMyFile(); // always close the resource
+}
