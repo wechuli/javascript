@@ -1,18 +1,18 @@
 // Logical AND(&&) returns first exp if it can be converted to false; otherwise returns expr2. Thus when used with Boolean values, && return true if both operands are true; otherwise returns false
 
-let a1 = true && true;
+let a1 = true && true;  //true
 console.log(a1);
-let a2 = true && false;
+let a2 = true && false;  //false
 console.log(a2);
-let a3 = false && true;
+let a3 = false && true;  //false
 console.log(a3);
-let a4 = false && 3 == 4;
+let a4 = false && 3 == 4; //false
 console.log(a4);
-let a5 = "Cat" && "Dog";
+let a5 = "Cat" && "Dog";  //Dog
 console.log(a5);
-let a6 = false && "Cat";
+let a6 = false && "Cat";   //false
 console.log(a6);
-let a7 = "Cat" && false;
+let a7 = "Cat" && false; //false
 console.log(a7);
 
 console.log("Start of logical OR");
@@ -25,11 +25,11 @@ let o3 = false || true;
 console.log(o3);
 let o4 = false || 3 == 4;
 console.log(o4);
-let o5 = "Cat" || "Dog";
+let o5 = "Cat" || "Dog"; //'Cat'
 console.log(o5);
-let o6 = false || "Cat";
+let o6 = false || "Cat"; //'Cat'
 console.log(o6);
-let o7 = "Cat" || false;
+let o7 = "Cat" || false; // 'Cat'
 console.log(o7);
 
 // Logical NOT (!) returns false if its single operand that can be converted to true; otherwise returns true
@@ -38,7 +38,7 @@ console.log(n1);
 let n2 = !false;
 console.log(n2);
 let n3 = !"Cat";
-console.log(n3);
+console.log(n3); //false
 
 //false && anything is short-circuit evaluated to false
 //true || anything is short-circuit evaluated to true
