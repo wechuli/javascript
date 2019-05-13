@@ -13,6 +13,7 @@ console.log(
 );
 
 
+
 //Number Object Methods
 
 //Number.parseFloat()
