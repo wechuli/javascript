@@ -1,7 +1,5 @@
 //The Intl object is the namespace for the ECMAScript internationalization API, which provides language sensitive string comparion, number formating and date and time formatting.
 
-
-
 //Date and time formating
 const msPerDay = 24 * 60 * 60 * 1000;
 
@@ -23,3 +21,33 @@ const americanDateTime = new Intl.DateTimeFormat("en-US", options).format;
 
 console.log(americanDateTime(july172014)); // 07/16/14, 5:00 PM PDT
 
+//Number formatting
+const gasPrice = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 3
+});
+
+console.log(gasPrice.format(5.259)); // $5.259
+
+const hanDecimalRMBInChina = new Intl.NumberFormat("zh-CN-u-nu-hanidec", {
+  style: "currency",
+  currency: "CNY"
+});
+
+console.log(hanDecimalRMBInChina.format(1314.25)); // ￥ 一,三一四.二五
+
+//The Collator object is useful for comparing and sorting strings
+const names = ["Hochberg", "Hönigswald", "Holzman"];
+
+const germanPhonebook = new Intl.Collator("de-DE-u-co-phonebk");
+
+// as if sorting ["Hochberg", "Hoenigswald", "Holzman"]:
+console.log(names.sort(germanPhonebook.compare).join(", "));
+// logs "Hochberg, Hönigswald, Holzman"
+
+const germanDictionary = new Intl.Collator("de-DE-u-co-dict");
+
+// as if sorting ["Hochberg", "Honigswald", "Holzman"]:
+console.log(names.sort(germanDictionary.compare).join(", "));
+// logs "Hochberg, Holzman, Hönigswald"
