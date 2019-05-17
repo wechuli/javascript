@@ -11,7 +11,9 @@ class Person {
   calculateAge() {
     const diff = Date.now() - this.birthday.getTime();
     const ageDate = new Date(diff);
+    
     return Math.abs(ageDate.getUTCFullYear() - 1970);
+    
   }
   getsMarried(newLastName) {
     this.lastName = newLastName;
