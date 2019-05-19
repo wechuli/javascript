@@ -17,7 +17,7 @@
 //right-subtree
 
 //the Node class represents each item in the tree
-class Node {
+export class Node {
   constructor(data, left = null, right = null) {
     this.data = data;
     this.left = left;
@@ -25,7 +25,7 @@ class Node {
   }
 }
 //
-class BST {
+export class BST {
   constructor() {
     this.root = null;
   }
@@ -149,10 +149,7 @@ bst.add(3);
 bst.add(5);
 bst.add(7);
 bst.remove(4);
-console.log(bst.findMin())
-console.log(bst.findMax())
-console.log(bst.findMax())
-console.log(bst.isPresent(4))
-
-
-
+console.log(bst.findMin());
+console.log(bst.findMax());
+console.log(bst.findMax());
+console.log(bst.isPresent(4));
