@@ -20,3 +20,5 @@ console.log(arrNonzero2.length);
 
 
 //If you wish to initialize an array with a single element, and the elemnt happens to be a Number, you must use the bracket syntax. When a single Number value is passed to the Array() contructor or function, it is interpreted as an arrayLength, not as a single element
+
+//Note that the elements of an array that are omitted when the array is defined are not listed when iterating by forEach, but are listed when undefined has been manually assigned to the element
