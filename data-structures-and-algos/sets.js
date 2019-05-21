@@ -50,4 +50,33 @@ class MySet {
     });
     return unionSet;
   }
+  //this method will return the intersection of two sets as a new set
+  intersection(otherSet) {
+    let intersectionSet = new MySet();
+    let firstSet = this.values();
+    firstSet.forEach(e => {
+      if (otherSet.has(e)) {
+        intersectionSet.add(e);
+      }
+    });
+    return intersectionSet;
+  }
+
+  //this method will return the intersection of two sets as a new set
+  difference(otherSet) {
+    let Set = new MySet();
+    let firstSet = this.values();
+    firstSet.forEach(e => {
+      if (!otherSet.has(e)) {
+        intersectionSet.add(e);
+      }
+    });
+  }
+  //this method will test if the set is a subset of a different set
+  subset(otherSet) {
+    let firstSet = this.values();
+    return firstSet.every(value => {
+      otherSet.has(value);
+    });
+  }
 }
