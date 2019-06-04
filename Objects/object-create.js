@@ -13,6 +13,8 @@ mary.firstName = "Mary";
 mary.lastName = "Williams";
 mary.age = 30;
 
+
+
 mary.getsMarried("Thompson");
 console.log(mary);
 console.log(mary.greeting());
