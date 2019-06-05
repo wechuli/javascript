@@ -1,0 +1,44 @@
+{
+  "_id": { "$oid": "5cf786330259eb0017949cb0" },
+  "app_id": "disdro_tillvaxtverket",
+  "dev_id": "disdro00tillvaxtverket",
+  "hardware_serial": "70B3D55DC0080B13",
+  "port": { "$numberInt": "10" },
+  "counter": { "$numberInt": "1161" },
+  "payload_raw": "JCEAAAC4CwAAAAC0",
+  "payload_fields": {
+    "B": "No Rain",
+    "BarPress": "300hPa",
+    "Evapo": "0kg",
+    "RelHum": "0%",
+    "SoilMoist": "1406.25%",
+    "TempIn": "33°C",
+    "TempOut": "0°C",
+    "Voltage": "3.6v",
+    "WindSpeed": "0m/s"
+  },
+  "metadata": {
+    "time": "2019-06-05T09:06:59.670903318Z",
+    "frequency": { "$numberDouble": "867.9" },
+    "modulation": "LORA",
+    "data_rate": "SF12BW125",
+    "coding_rate": "4/5",
+    "gateways": [
+      {
+        "gtw_id": "eui-70b3d55d0b031d0e",
+        "timestamp": { "$numberDouble": "2459844996" },
+        "time": "2019-06-05T09:06:59.496185Z",
+        "channel": { "$numberInt": "7" },
+        "rssi": { "$numberInt": "-77" },
+        "snr": { "$numberDouble": "5.5" },
+        "rf_chain": { "$numberInt": "0" },
+        "latitude": { "$numberDouble": "-1.09482" },
+        "longitude": { "$numberDouble": "35.86353" },
+        "altitude": { "$numberInt": "1900" }
+      }
+    ]
+  },
+  "downlink_url": "https://integrations.thethingsnetwork.org/ttn-eu/api/v2/down/disdro_tillvaxtverket/ilabapi?key=ttn-account-v2.Unw7F097fxiQ5ZthCecx8OaU4JafVKvs39zpQhI4TMY",
+  "time": { "$date": { "$numberLong": "1559725619951" } },
+  "__v": { "$numberInt": "0" }
+}
