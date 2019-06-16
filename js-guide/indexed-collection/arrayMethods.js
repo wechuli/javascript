@@ -49,3 +49,35 @@ console.log(myOwnFDay); //empty array
 console.log(first);
 first.splice(6, 1); //just removed it
 console.log(first);
+
+//9. reverse() transposes the elements of an array, in place: the first array element becomes the last and the last becomes the first. it returns a reference to the array
+console.log(first);
+console.log(first.reverse());
+
+//10. sort() sorts the elements of an array in place and returns a reference to the array
+
+const girls = ["Jennifer", "Mercy", "Abigail", "Sharon", "Lily"];
+const mynumbers = [23, 3, 2, 3434, 1, 2, 0, -32, 3, 13, 23];
+
+console.log(girls.sort());
+console.log(mynumbers.sort());
+
+//11. indexOf(searchElement[,fromIndex]) searches the array for searchElement and returns the index of the first match
+
+const array = new Array("a", "b", "c", "a", "b", "b", "a");
+console.log(array.indexOf("b"));
+console.log(array.indexOf("b", 2)); //note that the serach will include the startIndex given
+console.log(array.indexOf("z")); //logs -1 because "z" was not found
+
+//lastIndexOf(searchElement[,fromIndex]) works like indexOf, but starts at the end and searches backwards
+
+console.log(array.lastIndexOf("b"));
+console.log(array.lastIndexOf("b", 3));
+
+//forEach()
+//map()
+//filter()
+//every()
+//some()
+//reduce()
+//reduceRight()
