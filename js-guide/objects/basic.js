@@ -1,3 +1,5 @@
+//In JavaScript, most things are objects, from core JavaScript features like strings and arrays to the browser APIs built on top of JavaScript. You can even create your own objects to encapsulate related functions and variables into efficient packages and act as handy data containers
+
 //JavaScript is designed on a simple object-based paradigm. An object is a collection of properties and a property is an association between a name(or key) and a value.
 
 const myCar = new Object();
