@@ -14,6 +14,9 @@ class EmptyGetters {
   get age() {
     return this._age;
   }
+  set age(age) {
+    this._age = age;
+  }
 }
 
 const person = new EmptyGetters("Paul", 26);
