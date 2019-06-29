@@ -18,7 +18,7 @@ const Person = new Object({
 console.log(Person);
 console.log(Person.dummy());
 
-//Usinf the create() method
+//Using the create() method, creates an object with the constructor as the parameter passed in
 const person = {
   name: "Paul",
   age: 26,
