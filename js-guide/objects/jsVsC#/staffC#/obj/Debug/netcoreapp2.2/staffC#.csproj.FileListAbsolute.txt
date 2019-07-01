@@ -1,0 +1,11 @@
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\bin\Debug\netcoreapp2.2\staffC#.deps.json
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\bin\Debug\netcoreapp2.2\staffC#.runtimeconfig.json
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\bin\Debug\netcoreapp2.2\staffC#.runtimeconfig.dev.json
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\bin\Debug\netcoreapp2.2\staffC#.dll
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\bin\Debug\netcoreapp2.2\staffC#.pdb
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\obj\Debug\netcoreapp2.2\staffC#.csprojAssemblyReference.cache
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\obj\Debug\netcoreapp2.2\staffC#.csproj.CoreCompileInputs.cache
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\obj\Debug\netcoreapp2.2\staffC#.AssemblyInfoInputs.cache
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\obj\Debug\netcoreapp2.2\staffC#.AssemblyInfo.cs
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\obj\Debug\netcoreapp2.2\staffC#.dll
+E:\repos\javascript\js-guide\objects\jsVsC#\staffC#\obj\Debug\netcoreapp2.2\staffC#.pdb
