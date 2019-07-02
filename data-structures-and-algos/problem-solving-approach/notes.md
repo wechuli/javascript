@@ -15,7 +15,7 @@ It's the foundation for being a successful problem solver and developer.
 - Explore concrete examples
 - Break It down
 - Solve/Simplify
-- Loom Back and Refactor
+- Look Back and Refactor
 
 ### Understand the Problem
 
@@ -49,3 +49,14 @@ To simplify:
 - Temporarily ignore that difficulty
 - Write a simplified solution
 - Then incorporate that difficulty back in
+
+### Look Back and Refactor
+- Can you check the result?
+- Can you derive the result differently
+- Can you understand it at a glance
+- Can you use the result or method for some other problem
+- Can you improve the performance of your solution?
+- Can you think of other ways to refactor
+- How have other people solved this problem
+
+
