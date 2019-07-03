@@ -9,12 +9,12 @@ namespace staffC_
 
     public class Manager : Employee
     {
-        public Employee[] reports = new Employee[] { };
+        public Employee[] reports = new Employee[10];
     }
 
     public class WorkerBee : Employee
     {
-        public string[] projects = new string[] { };
+        public string[] projects = new string[10] ;
     }
 
     public class SalesPerson : WorkerBee

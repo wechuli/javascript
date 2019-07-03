@@ -31,3 +31,21 @@ In class-based languages, you typically create a class at compile time and then 
 
 
 The term instance has a specific technical meaning in class-based languages. In these languages, an instance is an individual instantiation of a class and is fundamentally different from a class. In JavaScript, "instance" does not have this technical meaning because JavaScript does not have this difference between classes and instances. However, in talking about JavaScript, "instance" can be used informally to mean an object created using a particular constructor function. So, in this example, you could informally say that jane is an instance of Engineer. Similarly, although the terms parent, child, ancestor, and descendant do not have formal meanings in JavaScript; you can use them informally to refer to objects higher or lower in the prototype chain.
+
+
+## Inheriting Properties
+
+Suppose you create the `mark` object as a `WorkerBee` with the following statement:
+
+```JavaScript
+
+var mark = new WorkerBee;
+
+```
+When JavaScript sees the `new` operator, it creates a new generic object and implicitly sets the value of the internal property [[Prototype]] to the value of `WorkerBee.prototype` and passes this new object as the value of the this keword to the WorkerBee constructor function. The internal [[Prototype]] property determines the prototype chain used to return property values. Once these properties are set, JavaScript returns the new object and the assignment statement sets the variable `mark` to that object.
+
+This process does not explicitly put values in the mark object (local values) for the properties that mark inherits from the prototype chain. When you ask for the value of a property, JavaScript first checks to see if the value exists in that object. If it does, that value is returned. If the value is not there locally, JavaScript checks the prototype chain (using the internal [[Prototype]] property). If an object in the prototype chain has a value for the property, that value is returned. If no such property is found, JavaScript says the object does not have the property. 
+
+In JavaScript, you can add properties to any object at run time. You are not constrained to use only the properties provided by the constructor function.
+
+If you add a new property to an object that is being used as the prototype for a constructor function, you add that property to all objects that inherit properties from the prototype.

@@ -35,3 +35,8 @@ function Engineer() {
 
 Engineer.prototype = Object.create(WorkerBee.prototype);
 Engineer.prototype.constructor = Engineer;
+
+const jim = new Employee();
+console.log(jim);
+const sally = new Manager();
+console.log(sally);
