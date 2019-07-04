@@ -3,8 +3,25 @@ namespace staffC_
 {
     public class Employee
     {
-        public string name = "";
-        public string dept = "general";
+
+        public string name;
+        public string dept;
+
+        public Employee(string name, string dept)
+        {
+            this.name = name;
+            this.dept = dept;
+
+        }
+
+        public Employee()
+        {
+            this.name = "";
+            this.dept = "general";
+        }
+
+
+
     }
 
     public class Manager : Employee
@@ -14,7 +31,7 @@ namespace staffC_
 
     public class WorkerBee : Employee
     {
-        public string[] projects = new string[10] ;
+        public string[] projects = new string[10];
     }
 
     public class SalesPerson : WorkerBee
