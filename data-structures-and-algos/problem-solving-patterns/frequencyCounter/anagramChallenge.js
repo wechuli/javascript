@@ -1,7 +1,7 @@
 // Given two strings, write a function to determine if the second string is an anagram of the first. An anagram is a word , phrase or name formed by rearranging the letter of another such as cinema formed from iceman
 
-let myString1 = "texttwisttime";
-let myString2 = "timetwisttext";
+let myString1 = "texttwist time";
+let myString2 = "t imetwisttext ";
 
 function anagram(arg1, arg2) {
   let str1 = arg1.toLowerCase();
