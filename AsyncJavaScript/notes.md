@@ -48,6 +48,7 @@ const response = fetch('MyImage.png');
 const blob = response.blob();
 // display your image blob in the UI somehow
 ```
+
 That's because you don't know how long the image will take to download, so when you come to run the second line it will throw an erro(possibly intermittently, posibly every time) because the `response` is not yet available. Instead, you need your code to wait unitl the `reponse` is returned before it tries to doanything else to it.
 
 There are two main types of asynchronous code style you'll come across in JavaScript code, old-style callbacks and newer promise-style code.
@@ -61,3 +62,121 @@ When we pass a callback function as a parameter to another function, we are only
 Callbacks are versatile - not only do they allow you to control the order in which functions are run and what data is passed between them, they also allow you to pass data to different functions depending on circumstance. Note that not all callbacks are sync - some run synchronously.
 
 For some APIs, the first argument in a callback function will contain an error if something went wrong, or will be empty if all went well. this pattern is called 'error first callbacks' and is very common. It is the standard pattern for callcack-based APIs in NodeJS. This means that for evry callback declared, we need to ckeck if there is an error and that just adds to the mess when dealing with nested callbacks.
+
+### Promises
+
+Promises are the new style of async code that you'll see used in modern Web APIs. A good example is the fetch API
+The `Promise` object represents the eventual completion(or failure) of an asynchronous operation, and its resulting value. Essentially, a promise is a returned object to which you attach callbacks, instead of passing callbacks into a function. Instead of providing a callback, a promise has its own methods which you call to tell the promise what will happen when it is successful or when it fails. The methods a promise provides are “then(…)” for when a successful result is available and “catch(…)” for when something went wrong.
+
+```JavaScript
+fetch('products.json').then(function(response) {
+  return response.json();
+}).then(function(json) {
+  products = json;
+  initialize();
+}).catch(function(err) {
+  console.log('Fetch problem: ' + err.message);
+});
+```
+
+Here we see `fetch()` taking a single parameter - the URL of a resource you want to fetch from the network - and returning a promise. The promise is an object representing the completion or failure of the async operation. It represents an intermediate state, as it were. In essence, it's the browser's way of saying "I promise to get back to you with the anser as soon as I can", hence the name "promise".
+We've then got three further code blocks chained onto the end of the `fetch()`
+
+- Two then() blocks. Both contain a callback function that will run if the previous operation is successful, and each callback receives as input the result of the previous successful operation, so you can go forward and do something else to it. Each .then() block returns another promise, meaning that you can chain multiple .then() blocks onto each other, so multiple asynchronous operations can be made to run in order, one after another
+- The catch() block at the end runs if any of the .then() blocks fail - in a similiar wat to synchonous try..catch blocks, an error object is made available inside the catch(), which can be used to report the kind of errror that has occurred. Note however that synchronous try...catch won't work with promises, although it will work with async/await
+
+### Promises VS Callbacks
+
+Promises have some similarities to old-style callbacks. They are essentially a returned object to which you attach callback functions, rather than having to pass callbacks into a function.
+
+However, promises are specifically made for handling async operations, and have many advantages over old-style callbacks:
+
+- You can chain multiple async operations together using multiple .then() operations, passing the result of one into the next one as an input. This is much harder to do with callbacks, which often ends up with a messy "pyramid of doom" (also known as callback hell).
+- Promise callbacks are always called in the strict order they are placed in the event queue.
+- Error handling is much better — all errors are handled by a single .catch() block at the end of the block, rather than being individually handled in each level of the "pyramid".
+
+You can't include an async code block that returns a result, which you then rely on later in a sync code block. You just can't guarantee that the async function will return before the browser has processed the async block.
+
+JavaScript promises as introdues in ES6. Using a promise this way looks like this:
+
+```JavaScript
+someAsyncOperation(someParams)
+.then(function(result){
+    // Do something with the result
+})
+.catch(function(error){
+    // Handle error
+});
+
+```
+
+One important side note here is that “someAsyncOperation(someParams)” is not a Promise itself but a function that returns a Promise. The true power of promises is shown when you have several asynchronous operations that depend on each other, just like in the example above under “Callback Hell”.
+
+Another important thing to notice is that even though we are doing two different asynchronous requests we only have one .catch() where we handle our errors. That’s because any error that occurs in the Promise chain will stop further execution and an error will end up in the next .catch() in the chain.
+
+A friendly reminder: just like with callback based APIs, this is still asynchronous operations. The code that is executed when the request has finished — that is, the subsequent .then() calls — is put on the event loop just like a callback function would be. This means you cannot access any variables passed to or declared in the Promise chain outside the Promise. The same goes for errors thrown in the Promise chain. You must also have at least one .catch() at the end of your Promise chain for you to be able to handle errors that occur. If you do not have a .catch(), any errors will silently pass and fade away and you will have no idea why your Promise does not behave as expected.
+
+### Creating Promises
+
+Callbacks are not interchangeable with Promises. This means that callback-based APIs cannot be used as Promises. The main difference with callback-based APIs is it does not return a value, it just executes the callback with the result. A promise-based API, on the other hand, immediately returns a Promise that wraps the asynchronous operation, and the the caller uses the returned Promise object and calls then() and .catch() on it to declare what will happen when the operations has finished.
+
+The creation of a Promise object is done via the Promise constructor by calling “new Promise()”. It takes a function as an argument and that function gets passed two callbacks: one for notifying when the operation is successful (resolve) and one for notifying when the operation has failed (reject). What you pass as an argument when calling resolve will be passed to the next then() in the promise chain. The argument passed when calling reject will end up in the next catch(). It is a good idea to make sure that you always pass Error objects when calling reject.
+
+We can wrap a callback based asynchronous operation with a Promise like this:
+
+```JavaScript
+function getAsyncData(someValue){
+    return new Promise(function(resolve, reject){
+        getData(someValue, function(error, result){
+            if(error){
+                reject(error);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    });
+}
+```
+
+Note that it is within the function being passed to the Promise constructor that we start the asynchronous operation. This function is then responsible for calling resolve(success) when it's done or reject(error) if there are errors.
+
+This means that we can use the function 'getAsyncData' like this:
+
+```JavaScript
+getAsyncData(“someValue”)
+// Calling resolve in the Promise will get us here, to the first then(…)
+.then(function(result){
+    // Do stuff
+})
+// Calling reject in the Promise will get us here, to the catch(…)
+// Also if there is an error in any then(..) it will end up here
+.catch(function(error){
+    // Handle error
+});
+```
+
+The process of wrapping a callback based asynchronous function inside a Promise and return that promise instead is called “promisification”. We are “promisifying” a callback-based function. There are lots of modules that let you do this in a nice way but since version 8 NodeJs has a built in a helper called “util.promisify” for doing exactly that.
+This means that our whole Promise wrapper above could instead be written like this:
+
+```JavaScript
+const { promisify } = require(‘util’);
+const getAsyncData = promisify(getData);
+getAsyncData(“someValue”)
+.then(function(result){
+    // Do stuff
+})
+.catch(function(error){
+    // Handle error
+});
+```
+
+### Conclusion
+
+In its most basic form, JavaScript is a synchronous, blocking, single-threaded language, in which only one operation can be in progress at a time. But web browsers define functions and APIs that allow us to register functions that should not be executed synchronously, and should instead be invoked asynchronously when some kind of event occurs (the passage of time, the user's interaction with the mouse, or the arrival of data over the network, for example). This means that you can let your code do several things at the same time without stopping or blocking your main thread.
+
+Whether we want to run code synchronously or asynchronously will depend on what we're trying to do.
+
+There are times when we want things to load and happen right away. For example when applying some user-defined styles to a webpage you'll want the styles to be applied as soon as possible.
+
+If we're running an operation that takes time however, like querying a database and using the results to populate templates, it is better to push this off the main thread and complete the task asynchronously.
