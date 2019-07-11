@@ -39,3 +39,48 @@ const myInterval = setInterval(myFunction, 2000);
 clearInterval(myInterval);
 
 ```
+
+## Things to Keep in Mind about `setTimeout()` and `setInterval()`
+
+### Recursive timeouts
+
+```JavaScript
+let i = 1;
+
+setTimeout(function run() {
+  console.log(i);
+  i++;
+  setTimeout(run, 100);
+}, 100);
+```
+
+Compare the above example to the following one - this uses `setInterval()` to accomplish the same effect:
+
+```JavaScript
+let i = 1;
+
+setInterval(function run() {
+  console.log(i);
+  i++
+}, 100);
+```
+
+When your code has the potential to take longer to run than the time interval you’ve assigned, it’s better to use recursive setTimeout() — this will keep the time interval constant between executions regardless of how long the code takes to execute, and you won't get errors.
+
+### Immediate timeouts
+
+Using 0 as the value of `setTimeout()` schedules the execution of the specified callback function as soon as possible but only after the main code thread has been run.
+
+This can be useful in cases where you want to set a block of code to run as soon as all of the main thread has finished running — put it on the async event loop, so it will run straight afterwards.
+
+### Clearing with clearTimeout() or clearInterval()
+
+clearTimeout() and clearInterval() both use the same list of entries to clear from. Interestingly enough, this means that you can use either method to clear a setTimeout() or setInterval().
+
+For consistency, you should use clearTimeout() to clear setTimeout() entries and clearInterval() to clear setInterval() entries. This will help to avoid confusion
+
+## requestAnimationFrame()
+
+requestAnimationFrame() is a specialized looping function created for running animations efficiently in the browser. It is basically the modern version of setInterval() — it executes a specified block of code before the browser next repaints the display, allowing an animation to be run at a suitable frame rate regardless of the environment it is being run in.
+
+It was created in response to perceived problems with setInterval(), which for example doesn't run at a frame rate optimized for the device, sometimes drops frames, continues to run even if the tab is not the active tab or the animation is scrolled off the page, etc.
