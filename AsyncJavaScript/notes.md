@@ -180,3 +180,23 @@ Whether we want to run code synchronously or asynchronously will depend on what 
 There are times when we want things to load and happen right away. For example when applying some user-defined styles to a webpage you'll want the styles to be applied as soon as possible.
 
 If we're running an operation that takes time however, like querying a database and using the results to populate templates, it is better to push this off the main thread and complete the task asynchronously.
+
+## Graceful Asynchronous Programming with Promises
+
+Promises are a comparatively new feature of the JavaScript language that alow you to defer further actions unitl after a previous action has completed, or respond to its failure. This is really useful for setting up a sequence of async operations to work correctly.
+
+Essentially, a Promise is an object that represents an intermediate state of an operation - in effect, a promise that a result of some kind will be returned at some point in the future. There is no guarantee of exactly when the operation will complte and the result will be returned, but there is a guarantee that when the result is available, or the promise fails, the code you provide will be executed in order to do something else with a successful result, or to gracefully handle a failure case.
+
+Generally you are less interested in the amount of time an async operation will take to return its result (unless of course it takes far too long!), and more interested in being able to respond to it being returned, whenever that is. And of course, it's nice that it doesn't block the rest of the code execution.
+
+At their most baisc, promises are similar to event listeners =, but with a few differences:
+
+- A promises can only succeed or fail once. It cannot succeed or fail twice and it cannot switch from success to failure or vice cersa once the operation has completed.
+- If a promise has succeeded or failed and you later add a success/failure callback, the correct callback will be called, even though the event took place earlier.
+
+#### Recap on Promises
+
+1. When a promise is created, it is neither in a success or failure state. It is said to be pending.
+2. When a promise returns, it is said to be resolved
+   1. A successfully resolved promise is said to be fulfilled. It returns a value which can be accessed by chaining a `.then()` block onto the end of the promise chain. The executor function inside the `.then()` block contain the promise's return value.
+   2. An unsuccessful resolved promise is said to be rejected. It returns a reson, an error message stating why the promise was rejected. This reason can be accessed by chaining a `.catch()` block onto the end of the promise chain.
