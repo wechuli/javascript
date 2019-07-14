@@ -200,3 +200,46 @@ At their most baisc, promises are similar to event listeners =, but with a few d
 2. When a promise returns, it is said to be resolved
    1. A successfully resolved promise is said to be fulfilled. It returns a value which can be accessed by chaining a `.then()` block onto the end of the promise chain. The executor function inside the `.then()` block contain the promise's return value.
    2. An unsuccessful resolved promise is said to be rejected. It returns a reson, an error message stating why the promise was rejected. This reason can be accessed by chaining a `.catch()` block onto the end of the promise chain.
+
+### Running code in response to multiple promises fulfilling
+
+`Promise.all()` is a static method that takes an array of promises as an input parameter and returns a new `Promise` object that will fulfill only if and when *all* promises in the array fulfill.
+
+```JavaScript
+Promise.all([a,b,c]).then(values =>{
+    ...
+})
+```
+
+If they fulfill, then the chained `.then()` block's executor function will be passed an array containing all those results as a parameter. If any of the promises passed to `Promise.all()` reject, the whole block will reject.
+
+This can be very useful. Imagine that we’re fetching information to dynamically populate a UI feature on our page with content. In many cases, it makes sense to receive all the data and only then show the complete content, rather than displaying partial information.
+
+### Running some final code after a promise fulfills/rejects
+
+There will be cases where you want to run a final block of code after a promise completes regardless of whether it fulfilled or rejected. You can do this using the `.finally()` method.
+
+```JavaScript
+myPromise
+.then(response => {
+  doSomething(response);
+})
+.catch(e => {
+  returnError(e);
+})
+.finally(() => {
+  runFinalCode();
+});
+```
+
+### Building Custom Promises
+
+It is possible to build your own promises using the `Promise()` constructor. The main situation in which you'll want to do this is when you've got code based on an old-school asynchronous API that is not promise-based, which you want to promisify. This comes in handy when you need to use existing, older project code, libraries or frameworks along with modern promise-based code.
+
+We can create a promise that rejects using the `reject()` method - just like `resolve()`, this takes a single value, but in this case it is the reason to reject with i.e the error that will be passed into the `.catch()` block.
+
+#### Promises Conclusion
+
+Promises are a good way to build asynchronous applications when we don't know the return value of a function or how long it will take to return.They make is easier to express and reason about sequences of asynchronous operations without deeply nested callbacks and they support a style of error hanlding that is similar to the synchrnous `try..catch` statement.
+
+Most moderm Web APIs are promise-based. Among those APIs are **WebRTC**,**WebAudio**,**Media Capture and Streams** 
