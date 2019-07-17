@@ -5,13 +5,16 @@ function isSubsequence(word, phrase) {
     throw new Error("Function accepts only string inputs");
   }
 
-  if (phrase.indexOf(word) === -1) {
-    return false;
+  let lastIndexOfPhrase = 0;
+  for (let i = 0; i < word.length; i++) {
+    let letterIndex = phrase.indexOf(word[i], lastIndexOfPhrase);
+    if (letterIndex === -1) {
+      return false;
+    }
+    lastIndexOfPhrase = letterIndex;
   }
   return true;
 }
-
-// this is not what the question was actually asking
 
 console.log(isSubsequence("hello", "hello world"));
 console.log(isSubsequence("sing", "sting"));
