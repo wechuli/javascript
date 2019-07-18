@@ -243,3 +243,65 @@ We can create a promise that rejects using the `reject()` method - just like `re
 Promises are a good way to build asynchronous applications when we don't know the return value of a function or how long it will take to return.They make is easier to express and reason about sequences of asynchronous operations without deeply nested callbacks and they support a style of error hanlding that is similar to the synchrnous `try..catch` statement.
 
 Most moderm Web APIs are promise-based. Among those APIs are **WebRTC**,**WebAudio**,**Media Capture and Streams** 
+
+## Async and Await
+
+More recent additions to the JavaScript language are `async functions` and the `await` keyword. These features basically act as syntatic sugar on top of promises, making asynchronous code easier to write and read afterwards.
+
+First of all we have the `async` keyword, which you put in front of a function declaration to turn it into an async function. An asynchronous function is a function which operates asynchronously via the event loop, using an implicit `Promise` to return its result.
+e.g
+```JavaScript
+async function hello() { return "Hello" };
+hello();
+
+```
+
+To actually consume the value returned when the promise fulfils, since it is returning a promise, we could use a `.then()` block:
+
+```JavaScript
+hello().then((value) => console.log(value))
+```
+
+So the `async` keyword is added to functions to tell them to return a promise rather than directly returning the value. In addition, this lets synchronous functions avoid any potential overhead that comes with running with support for using `await`. By only adding the necessary handling when the function is declared `async`, the JavaScript engine can optimize your program for you.
+
+The real advantage of async functions becomes apparent when you combine it with the `await` keyword. This can be put in front of any async promise-based function to pause your code on that line unitl the promise fulfills, then return the resulting value. In the meantime, other code that may be waiting for a chance to execute gets to do so.
+
+You can use `await` when calling any function that returns a Promise, including web API functions
+e.g
+
+```JavaScript
+async function hello() {
+  return greeting = await Promise.resolve("Hello");
+};
+
+hello().then(alert);
+
+```
+
+Since an `async` keyword turns a function into a promise, you could refactor your code to use a hybrid approach of promises and await, bringing the second half of the function out into a new block to make it more flexible.
+
+```JavaScript
+async function myFetch() {
+  let response = await fetch('coffee.jpg');
+  return await response.blob();
+}
+
+myFetch().then((blob) => {
+  let objectURL = URL.createObjectURL(blob);
+  let image = document.createElement('img');
+  image.src = objectURL;
+  document.body.appendChild(image);
+});
+
+```
+
+The `await` keyword causes the JavaScript runtime to pause your code on this line, allowing other code to execute in the meantime, until the async function call has returned its result. Oncce that's complete, your code continues to execute starting on the next line.
+
+For example 
+
+```JavaScript
+let response = await fetch('coffee.jpg');
+```
+The response returned by the fulfilled `fetch()` promise is assigned to the `response` variable when that response becomes available, and the parser pauses on this line until that occurs. Once the response is available, the parser moves to the nect line , which creates a `Blob` out of it. This line also invokes an async promise-based method, se we use `await` here as well. When the result of operation returns, we return it out of the `myFetch()` function.
+
+This means that when we call the `myFetch()` function, it returns a promise, so we can chain a `.then()` onto the end of it inside which we handle displaying the blob onscreen.
