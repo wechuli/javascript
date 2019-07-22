@@ -203,7 +203,7 @@ At their most baisc, promises are similar to event listeners =, but with a few d
 
 ### Running code in response to multiple promises fulfilling
 
-`Promise.all()` is a static method that takes an array of promises as an input parameter and returns a new `Promise` object that will fulfill only if and when *all* promises in the array fulfill.
+`Promise.all()` is a static method that takes an array of promises as an input parameter and returns a new `Promise` object that will fulfill only if and when _all_ promises in the array fulfill.
 
 ```JavaScript
 Promise.all([a,b,c]).then(values =>{
@@ -242,7 +242,7 @@ We can create a promise that rejects using the `reject()` method - just like `re
 
 Promises are a good way to build asynchronous applications when we don't know the return value of a function or how long it will take to return.They make is easier to express and reason about sequences of asynchronous operations without deeply nested callbacks and they support a style of error hanlding that is similar to the synchrnous `try..catch` statement.
 
-Most moderm Web APIs are promise-based. Among those APIs are **WebRTC**,**WebAudio**,**Media Capture and Streams** 
+Most moderm Web APIs are promise-based. Among those APIs are **WebRTC**,**WebAudio**,**Media Capture and Streams**
 
 ## Async and Await
 
@@ -250,6 +250,7 @@ More recent additions to the JavaScript language are `async functions` and the `
 
 First of all we have the `async` keyword, which you put in front of a function declaration to turn it into an async function. An asynchronous function is a function which operates asynchronously via the event loop, using an implicit `Promise` to return its result.
 e.g
+
 ```JavaScript
 async function hello() { return "Hello" };
 hello();
@@ -297,11 +298,106 @@ myFetch().then((blob) => {
 
 The `await` keyword causes the JavaScript runtime to pause your code on this line, allowing other code to execute in the meantime, until the async function call has returned its result. Oncce that's complete, your code continues to execute starting on the next line.
 
-For example 
+For example
 
 ```JavaScript
 let response = await fetch('coffee.jpg');
 ```
+
 The response returned by the fulfilled `fetch()` promise is assigned to the `response` variable when that response becomes available, and the parser pauses on this line until that occurs. Once the response is available, the parser moves to the nect line , which creates a `Blob` out of it. This line also invokes an async promise-based method, se we use `await` here as well. When the result of operation returns, we return it out of the `myFetch()` function.
 
 This means that when we call the `myFetch()` function, it returns a promise, so we can chain a `.then()` onto the end of it inside which we handle displaying the blob onscreen.
+
+### Awaiting a Promise.all()
+
+`async/await` is built on top of promises, so it's compatible with all the features offered by promises. This includes `Promise.all()`- you can quite happily await a `Promise.all()` call to get all the results returned into a variable in a way that looks like simple synchronous code
+
+```JavaScript
+let values = await Promise.all([coffee, tea, description]);
+
+```
+
+By using `await` here, we are able to get all the results of the three promises returned into the `values` array, when they are all available
+
+### The downsides of async/await
+
+Async/await is really useful to know about, but there are a couple of downsides to consider.
+
+Async/await makes your code look synchronous and in a way it makes it behave more synchrnously. The `await` keyword blocks execution of all the code that follows until the promise fulfills, exactly as it would with a synchronous operation. It does allow other tasks to continue to run in the meantime, but your own code is blocked.
+
+This means that your code could be slowed down by a significant number of awaited promises happening straight after one another. Each await will wait for the previous one to finish, whereas actually what you want is for the promises to begin processing simultaneously, like they would do if we weren't using async/await.
+
+There is a pattern that can mitigate this problem — setting off all the promise processes by storing the Promise objects in variables, and then awaiting them all afterwards.
+
+Example
+
+```JavaScript
+async function timeTest() {
+  await timeoutPromise(3000);
+  await timeoutPromise(3000);
+  await timeoutPromise(3000);
+}
+
+```
+
+Instead we do below:
+
+```JavaScript
+async function timeTest() {
+  const timeoutPromise1 = timeoutPromise(3000);
+  const timeoutPromise2 = timeoutPromise(3000);
+  const timeoutPromise3 = timeoutPromise(3000);
+
+  await timeoutPromise1;
+  await timeoutPromise2;
+  await timeoutPromise3;
+}
+```
+
+Here we store the three `Promise` objects in variables, which has the effect of setting off their associated processes all running simultaneously.
+
+Next, we await their results - because the promises all started processing at essentially the same time, the promises will all fulfill at the same time.
+
+Another minor inconvenience is that you have to wrap your awaited promises inside an async function.
+
+### Async/await class methods
+
+You can add `async` in front of class/object methods to make them return promises, and `await` promises inside them.
+e.g
+
+```JavaScript
+class Person {
+  constructor(first, last, age, gender, interests) {
+    this.name = {
+      first,
+      last
+    };
+    this.age = age;
+    this.gender = gender;
+    this.interests = interests;
+  }
+
+  async greeting() {
+    return await Promise.resolve(`Hi! I'm ${this.name.first}`);
+  };
+
+  farewell() {
+    console.log(`${this.name.first} has left the building. Bye for now!`);
+  };
+}
+
+let han = new Person('Han', 'Solo', 25, 'male', ['Smuggling']);
+```
+
+## Chossing the right approach
+
+### Asynchronous callbacks
+
+Generally found in old-style APIs, involves a function being passed into another function as a parameter, which is then invoked when an asynchronous operation has been completed, so that the callback in turn to do something with the result. This is the precursor to promises; its not as efficient or flexible. Use only when necessary.
+
+#### Pitfalls
+
+- Nested callbacks can be cumbersome and hard to read(i.e. "callback hell")
+- Failure callbacks need to be called once for each level of nesting, whereas with promises you can just use a single `.catch()` block to handle the errors for the entire chain
+- Async callbacks aren;t very graceful
+- Promises callbacks are always called in the strict order they are placed in the event queue; async callbacks aren't.
