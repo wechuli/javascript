@@ -19,3 +19,7 @@ In almost all programming languages, there is a built in data structure that man
 It's named the **call stack!**
 - Any time a function is invoked, it is placed(pushed) on top of the call stack
 - When JavaScript sees the return keyword or when the function ends, the compiler will remove(pop)
+
+## Two essential parts of a recursive function
+- Base Case
+- Different Input
